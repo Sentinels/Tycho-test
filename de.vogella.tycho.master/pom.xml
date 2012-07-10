@@ -23,39 +23,65 @@
 		</repository>
 	</repositories>
 
-	<build>
-		<plugins>
-			<plugin>
-				<groupId>org.eclipse.tycho</groupId>
-				<artifactId>tycho-maven-plugin</artifactId>
-				<version>${tycho-version}</version>
-				<extensions>true</extensions>
-			</plugin>
-
-			<plugin>
-				<groupId>org.eclipse.tycho</groupId>
-				<artifactId>tycho-p2-director-plugin</artifactId>
-				<version>${tycho-version}</version>
-				<executions>
-					<execution>
-						<id>materialize-products</id>
-						<goals>
-							<goal>materialize-products</goal>
-						</goals>
-					</execution>
-					<execution>
-						<id>archive-products</id>
-						<goals>
-							<goal>archive-products</goal>
-						</goals>
-					</execution>
-				</executions>
-			</plugin>
-		</plugins>
 
 
 
-	</build>
+
+<build>
+  <plugins>
+   <plugin>
+    <groupId>org.eclipse.tycho</groupId>
+    <artifactId>tycho-maven-plugin</artifactId>
+    <version>${tycho-version}</version>
+    <extensions>true</extensions>
+   </plugin>
+
+   <plugin>
+    <groupId>org.eclipse.tycho</groupId>
+    <artifactId>tycho-p2-director-plugin</artifactId>
+    <version>${tycho-version}</version>
+    <executions>
+     <execution>
+      <id>materialize-products</id>
+      <goals>
+       <goal>materialize-products</goal>
+      </goals>
+     </execution>
+     <execution>
+      <id>archive-products</id>
+      <goals>
+       <goal>archive-products</goal>
+      </goals>
+     </execution>
+    </executions>
+   </plugin>
+
+
+     <!-- Upload the repo to the server -->
+     <plugin>
+      <groupId>org.codehaus.mojo</groupId>
+      <artifactId>wagon-maven-plugin</artifactId>
+      <version>1.0-beta-4</version>
+        <configuration>
+         <fromDir>${repo.path}</fromDir>
+         <includes>**</includes>
+         <toDir>/repository</toDir>
+         <url>file:///home/sentinels/workspace/tycho-test/repository</url>
+         <serverId>p2Repo</serverId>
+         <!-- Points to your settings.xml where the connection settings are 
+          stored as shown below -->
+         <!-- <server> -->
+         <!-- <id>p2Repo</id> -->
+         <!-- <username>username</username> -->
+         <!-- <password>password</password> -->
+         <!-- </server> -->
+        </configuration>
+     </plugin>
+    </plugins>
+   </build>
+
+
+
 
 	<distributionManagement>
     <repository>
