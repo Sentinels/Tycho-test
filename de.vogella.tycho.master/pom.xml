@@ -57,4 +57,11 @@
 
 	</build>
 
+	<distributionManagement>
+    <repository>
+      <id>local-repository</id>
+      <url>file:///home/sentinels/workspace/tycho-test/repository</url>
+    </repository>
+  </distributionManagement>
+
 </project>
